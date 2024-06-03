@@ -8,7 +8,7 @@ app = Flask(__name__)
 def hello():
     return render_template('submit.html')
 
-@app.route('/submit', methods=['post'])
+@app.route('/submit', methods=['post']) #htmlでpathを設定する必要がある
 def submit():
     return '提出が完了しました。'
 
