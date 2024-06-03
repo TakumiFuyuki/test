@@ -6,8 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'hi'
-    #return render_template('submit.html')
+    return render_template('submit.html')
 
 # @app.route('/submit', methods=['post'])
 # def submit():
