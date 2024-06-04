@@ -6,12 +6,12 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# # Google Cloud BigQueryのクライアントを初期化します
-# client = bigquery.Client()
+# Google Cloud BigQueryのクライアントを初期化します
+client = bigquery.Client()
 
-# # BigQueryのデータセット名とテーブル名を定義します
-# dataset_name = 'datasets'
-# table_name = 'button'
+# BigQueryのデータセット名とテーブル名を定義します
+dataset_name = 'datasets'
+table_name = 'button'
 
 @app.route('/')
 def index():
