@@ -33,7 +33,7 @@ def submit():
 def insert_data_to_bigquery(button_time, button_type):
     # データをBigQueryのテーブルに挿入するためのクエリを作成します
     query = f"""
-        INSERT INTO `{dataset_name}.{table_name}` (datetime, type)
+        INSERT INTO '{dataset_name}.{table_name}' (datetime, type)
         VALUES ('{button_time}', '{button_type}')
     """
 
