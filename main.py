@@ -10,7 +10,7 @@ app = Flask(__name__)
 client = bigquery.Client()
 
 # BigQueryのデータセット名とテーブル名を定義します
-dataset_name = 'gifted-fragment-425209-s7.datasets.'
+dataset_name = 'gifted-fragment-425209-s7.datasets'
 table_name = 'button'
 
 @app.route('/')
@@ -26,7 +26,7 @@ def submit():
     button_type = request.form['button_type']
 
     # # BigQueryにデータを挿入します
-    # insert_data_to_bigquery(button_time, button_type)
+    insert_data_to_bigquery(button_time, button_type)
     return '提出が完了しました。'
 
 
