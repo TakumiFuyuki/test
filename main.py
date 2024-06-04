@@ -36,7 +36,7 @@ def insert_data_to_bigquery(button_time, button_type):
 
     # クエリの準備
     query = """
-        INSERT IN#TO `{dataset_name}.{table_name}` (datetime, type)
+        INSERT INTO `{dataset_name}.{table_name}` (datetime, type)
         VALUES (@button_time, @button_type)
     """.format(dataset_name=dataset_name, table_name=table_name)
 
