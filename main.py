@@ -20,10 +20,10 @@ def index():
 @app.route('/submit', methods=['post']) #htmlでpathを設定する必要がある
 def submit():
     # # ボタンが押された時刻を取得します
-    # button_time = datetime.now()
+    button_time = datetime.now()
 
     # フォームからボタンの種類を取得します
-    button_type = request.form['button_type']
+    # button_type = request.form['button_type']
 
     # # BigQueryにデータを挿入します
     # insert_data_to_bigquery(button_time, button_type)
