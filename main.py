@@ -21,7 +21,7 @@ def index():
 def submit():
     # ボタンが押された時刻を取得します
     button_time = datetime.now()
-    
+
     # フォームからボタンの種類を取得します
     button_type = request.form['button_type']
 
@@ -36,7 +36,7 @@ def insert_data_to_bigquery(button_time, button_type):
 
     # クエリの準備
     query = """
-        INSERT INTO `{dataset_name}.{table_name}` (datetime, type)
+        INSERT IN#TO `{dataset_name}.{table_name}` (datetime, type)
         VALUES (@button_time, @button_type)
     """.format(dataset_name=dataset_name, table_name=table_name)
 
