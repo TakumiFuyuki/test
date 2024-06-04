@@ -10,7 +10,7 @@ app = Flask(__name__)
 client = bigquery.Client()
 
 # BigQueryのデータセット名とテーブル名を定義します
-dataset_name = 'datasets'
+dataset_name = 'gifted-fragment-425209-s7.datasets.'
 table_name = 'button'
 
 @app.route('/')
