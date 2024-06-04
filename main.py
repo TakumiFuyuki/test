@@ -19,8 +19,8 @@ def index():
 
 @app.route('/submit', methods=['post']) #htmlでpathを設定する必要がある
 def submit():
-    # ボタンが押された時刻を取得します
-    button_time = datetime.now()
+    # # ボタンが押された時刻を取得します
+    # button_time = datetime.now()
 
     # フォームからボタンの種類を取得します
     button_type = request.form['button_type']
