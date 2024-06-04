@@ -37,13 +37,12 @@ def insert_data_to_bigquery(button_time, button_type):
     # クエリの準備
     query = """
         INSERT INTO `{dataset_name}.{table_name}` (datetime, type)
-        VALUES (@button_time, @button_type)
-    """.format(dataset_name=dataset_name, table_name=table_name)
+        VALUES ({button_time}, @button_type)
+    """.format(dataset_name=dataset_name, table_name=table_name, button_time=button_time_timestamp)
 
     # クエリパラメータの設定
     job_config = bigquery.QueryJobConfig(
         query_parameters=[
-            bigquery.ScalarQueryParameter("button_time", "TIMESTAMP", button_time_timestamp),
             bigquery.ScalarQueryParameter("button_type", "STRING", button_type),
         ]
     )
