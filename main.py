@@ -1,7 +1,7 @@
 # main.py
 
 from flask import Flask, render_template, request
-# from google.cloud import bigquery #install
+from google.cloud import bigquery #install
 from datetime import datetime
 
 app = Flask(__name__)
