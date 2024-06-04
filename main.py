@@ -20,9 +20,8 @@ def index():
 @app.route('/submit', methods=['post']) #htmlでpathを設定する必要がある
 def submit():
     # ボタンが押された時刻を取得します
-    now = datetime.now()
-    button_time = now.timestamp()
-
+    button_time = datetime.now()
+    
     # フォームからボタンの種類を取得します
     button_type = request.form['button_type']
 
@@ -32,14 +31,25 @@ def submit():
 
 
 def insert_data_to_bigquery(button_time, button_type):
-    # データをBigQueryのテーブルに挿入するためのクエリを作成します
-    query = f"""
-        INSERT INTO '{dataset_name}.{table_name}' (datetime, type)
-        VALUES ({button_time}, '{button_type}')
-    """
+    # ボタン時刻をUNIXタイムスタンプに変換
+    button_time_timestamp = button_time.timestamp()
 
-    # クエリを実行します
-    client.query(query)
+    # クエリの準備
+    query = """
+        INSERT INTO `{dataset_name}.{table_name}` (datetime, type)
+        VALUES (@button_time, @button_type)
+    """.format(dataset_name=dataset_name, table_name=table_name)
+
+    # クエリパラメータの設定
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[
+            bigquery.ScalarQueryParameter("button_time", "TIMESTAMP", button_time_timestamp),
+            bigquery.ScalarQueryParameter("button_type", "STRING", button_type),
+        ]
+    )
+
+    # クエリを実行
+    client.query(query, job_config=job_config)
 
 if __name__ == '__main__':
     app.run(port=8080)
