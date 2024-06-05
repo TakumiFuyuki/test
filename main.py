@@ -30,7 +30,6 @@ def submit():
 def insert_data_to_bigquery(button_time, button_type):
     # datetimeオブジェクトをISOフォーマットの文字列に変換
     button_time_iso = button_time.isoformat()
-    
     # BigQueryに挿入する行のデータを準備
     rows_to_insert = [
         {
