@@ -21,11 +21,11 @@ def submit():
     # ボタンが押された時刻を取得します
     button_time = datetime.now()
 
-    # フォームからボタンの種類を取得します
+    # フォームからボタンの種類を取得します、nameの部分を書き込む
     button_type = request.form['button_type']
 
     #フォームからテキストの内容を取得します
-    text_input = request.form['text_input']
+    # text_input = request.form['text_input']
 
     # BigQueryにデータを挿入します
     insert_button_data_to_bigquery(button_time, button_type)
