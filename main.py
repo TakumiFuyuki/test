@@ -25,11 +25,11 @@ def submit():
     button_type = request.form['button_type']
 
     #フォームからテキストの内容を取得します
-    # text_input = request.form['text_input']
+    text_input = request.form['text_input']
 
     # BigQueryにデータを挿入します
     insert_button_data_to_bigquery(button_time, button_type)
-    insert_text_data_to_bigquery(button_time, text_input)
+    # insert_text_data_to_bigquery(button_time, text_input)
     return '提出が完了しました。'
 
 def insert_button_data_to_bigquery(button_time, button_type):
