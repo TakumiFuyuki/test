@@ -5,15 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Example</title>
+    <title>Submit Form</title>
 </head>
 <body>
-    <h1>Button Example</h1>
-    <!-- ここでボタンを押した先の移行先を設定している -->
+    <h1>Submit Form</h1>
     <form action="/submit" method="post">
-        <!-- フィールドの設定が必要 → button_type -->
-        <input type="hidden" name="button_type" value="your_button_type_here">
-        <button type="submit">Submit!</button>
+        <label for="text_input">Enter your text:</label><br>
+        <input type="text" id="text_input" name="text_input"><br><br>
+        <input type="submit" name="button_type" value="Submit">
     </form>
 </body>
 </html>

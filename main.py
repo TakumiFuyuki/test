@@ -23,11 +23,15 @@ def submit():
     # フォームからボタンの種類を取得します
     button_type = request.form['button_type']
 
+    #フォームからテキストの内容を取得します
+    text_input = request.form['text_input']
+
     # BigQueryにデータを挿入します
-    insert_data_to_bigquery(button_time, button_type)
+    insert_button_data_to_bigquery(button_time, button_type)
+    insert_text_data_to_bigquery(button_time, text_input)
     return '提出が完了しました。'
 
-def insert_data_to_bigquery(button_time, button_type):
+def insert_button_data_to_bigquery(button_time, button_type):
     # datetimeオブジェクトをISOフォーマットの文字列に変換
     button_time_iso = button_time.isoformat()
     # BigQueryに挿入する行のデータを準備
@@ -35,6 +39,23 @@ def insert_data_to_bigquery(button_time, button_type):
         {
             "datetime": button_time_iso,
             "type": button_type
+        }
+    ]
+
+    # BigQueryのテーブルにデータを挿入
+    table_id = f"{dataset_name}.{table_name}"
+    errors = client.insert_rows_json(table_id, rows_to_insert)
+    if errors:
+        raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
+
+def insert_text_data_to_bigquery(button_time, text_input):
+    # datetimeオブジェクトをISOフォーマットの文字列に変換
+    button_time_iso = button_time.isoformat()
+    # BigQueryに挿入する行のデータを準備
+    rows_to_insert = [
+        {
+            "datetime": button_time_iso,
+            "type": text_input
         }
     ]
 
