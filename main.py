@@ -10,7 +10,7 @@ client = bigquery.Client()
 # BigQueryのデータセット名とテーブル名を定義します
 dataset_name = 'gifted-fragment-425209-s7.datasets'
 button_table = 'button'
-text_table = 'table'
+text_table = 'text'
 
 @app.route('/')
 def index():
@@ -29,7 +29,7 @@ def submit():
 
     # BigQueryにデータを挿入します
     insert_button_data_to_bigquery(button_time, button_type)
-    # insert_text_data_to_bigquery(button_time, text_input)
+    insert_text_data_to_bigquery(button_time, text_input)
     return '提出が完了しました。'
 
 def insert_button_data_to_bigquery(button_time, button_type):
