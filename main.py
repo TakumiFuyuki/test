@@ -9,7 +9,8 @@ client = bigquery.Client()
 
 # BigQueryのデータセット名とテーブル名を定義します
 dataset_name = 'gifted-fragment-425209-s7.datasets'
-table_name = 'button'
+button_table = 'button'
+text_table = 'table'
 
 @app.route('/')
 def index():
@@ -43,7 +44,7 @@ def insert_button_data_to_bigquery(button_time, button_type):
     ]
 
     # BigQueryのテーブルにデータを挿入
-    table_id = f"{dataset_name}.{table_name}"
+    table_id = f"{dataset_name}.{button_table}"
     errors = client.insert_rows_json(table_id, rows_to_insert)
     if errors:
         raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
@@ -55,12 +56,12 @@ def insert_text_data_to_bigquery(button_time, text_input):
     rows_to_insert = [
         {
             "datetime": button_time_iso,
-            "type": text_input
+            "text": text_input
         }
     ]
 
     # BigQueryのテーブルにデータを挿入
-    table_id = f"{dataset_name}.{table_name}"
+    table_id = f"{dataset_name}.{text_table}"
     errors = client.insert_rows_json(table_id, rows_to_insert)
     if errors:
         raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
