@@ -29,7 +29,7 @@ def submit():
 
     # BigQueryにデータを挿入します
     insert_button_data_to_bigquery(button_time, button_type)
-    # insert_text_data_to_bigquery(button_time, text_input)
+    insert_text_data_to_bigquery(button_time, text_input)
     return '提出が完了しました。'
 
 def insert_button_data_to_bigquery(button_time, button_type):
@@ -49,22 +49,22 @@ def insert_button_data_to_bigquery(button_time, button_type):
     if errors:
         raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
 
-# def insert_text_data_to_bigquery(button_time, text_input):
-#     # datetimeオブジェクトをISOフォーマットの文字列に変換
-#     button_time_iso = button_time.isoformat()
-#     # BigQueryに挿入する行のデータを準備
-#     rows_to_insert = [
-#         {
-#             "datetime": button_time_iso,
-#             "text": text_input
-#         }
-#     ]
+def insert_text_data_to_bigquery(button_time, text_input):
+    # datetimeオブジェクトをISOフォーマットの文字列に変換
+    button_time_iso = button_time.isoformat()
+    # BigQueryに挿入する行のデータを準備
+    rows_to_insert = [
+        {
+            "datetime": button_time_iso,
+            "text": text_input
+        }
+    ]
 
-#     # BigQueryのテーブルにデータを挿入
-#     table_id = f"{dataset_name}.{text_table}"
-#     errors = client.insert_rows_json(table_id, rows_to_insert)
-#     if errors:
-#         raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
+    # BigQueryのテーブルにデータを挿入
+    table_id = f"{dataset_name}.{text_table}"
+    errors = client.insert_rows_json(table_id, rows_to_insert)
+    if errors:
+        raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
 
 if __name__ == '__main__':
     app.run(port=8080)
