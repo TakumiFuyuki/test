@@ -82,7 +82,8 @@ def get_latest_text_data():
     results = query_job.result()
 
     # 結果を辞書のリストに変換します
-    latest_data = [dict(row) for row in results]
+    latest_data_dict = [dict(row) for row in results]
+    latest_data =[list(i.values())[0] for i in latest_data_dict]
     return latest_data
 
 if __name__ == '__main__':
