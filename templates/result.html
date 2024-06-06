@@ -11,8 +11,11 @@
     <h1>Latest Text Data</h1>
     <!-- ここでlatest_text_dataについてforループを回して、データを表示させる -->
     <ul>
-        {% for data in latest_text_data %}
+        <!-- {% for data in latest_text_data %}
             <li>{{ data }}</li>
-        {% endfor %}
+        {% endfor %} -->
+        {% for i in range(len(latest_data_time)) %}
+            <li>{{ latest_data_time[i] }:{ latest_data_text[i] }}</li>
+
     </ul>
 </body>

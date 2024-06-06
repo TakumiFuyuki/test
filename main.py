@@ -32,9 +32,9 @@ def submit():
     insert_text_data_to_bigquery(button_time, text_input)
 
     # BigQueryから最新10件のテキストデータを取得します
-    latest_text_data = get_latest_text_data()
+    latest_text_data_time, latest_text_data_text = get_latest_text_data()
     # return 'エラー確認'
-    return render_template('result.html', latest_text_data=latest_text_data) #result.htmlで使用している変数の定義も忘れずに！
+    return render_template('result.html', latest_text_data_time, latest_text_data_text=latest_text_data_time, latest_text_data_text) #result.htmlで使用している変数の定義も忘れずに！
 
 def insert_button_data_to_bigquery(button_time, button_type):
     # datetimeオブジェクトをISOフォーマットの文字列に変換
@@ -72,19 +72,30 @@ def insert_text_data_to_bigquery(button_time, text_input):
 
 def get_latest_text_data():
     # BigQueryから最新のテキストデータを取得します
-    query = f"""
+    query_time = f"""
+        SELECT datetime
+        FROM `{dataset_name}.{text_table}`
+        ORDER BY datetime DESC
+        LIMIT 10
+    """
+    query_job = client.query(query_time)
+    results_time = query_job.result()
+
+    query_text = f"""
         SELECT text
         FROM `{dataset_name}.{text_table}`
         ORDER BY datetime DESC
         LIMIT 10
     """
-    query_job = client.query(query)
-    results = query_job.result()
+    query_job = client.query(query_text)
+    results_text = query_job.result()
 
     # 結果を辞書のリストに変換します
-    latest_data_dict = [dict(row) for row in results]
-    latest_data =[list(i.values())[0] for i in latest_data_dict]
-    return latest_data
+    latest_data_dict = [dict(row) for row in results_time]
+    latest_data_dict = [dict(row) for row in results_text]
+    latest_data_time =[list(i.values())[0] for i in latest_data_dict]
+    latest_data_text =[list(i.values())[0] for i in latest_data_dict]
+    return latest_data_time, latest_data_text
 
 if __name__ == '__main__':
     app.run(port=8080)
