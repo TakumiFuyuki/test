@@ -72,15 +72,6 @@ def insert_text_data_to_bigquery(button_time, text_input):
 
 def get_latest_text_data():
     # BigQueryから最新のテキストデータを取得します
-    query_time = f"""
-        SELECT datetime
-        FROM `{dataset_name}.{text_table}`
-        ORDER BY datetime DESC
-        LIMIT 10
-    """
-    query_job = client.query(query_time)
-    results_time = query_job.result()
-
     query_text = f"""
         SELECT text
         FROM `{dataset_name}.{text_table}`
@@ -91,7 +82,7 @@ def get_latest_text_data():
     results_text = query_job.result()
 
     # 結果を辞書のリストに変換します
-    latest_data_dict = [dict(row) for row in results_time]
+    latest_data_dict = [dict(row) for row in results_text]
     latest_data =[list(i.values())[0] for i in latest_data_dict]
 
     return latest_data
