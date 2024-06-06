@@ -30,7 +30,11 @@ def submit():
     # BigQueryにデータを挿入します
     insert_button_data_to_bigquery(button_time, button_type)
     insert_text_data_to_bigquery(button_time, text_input)
-    return '提出が完了しました。'
+
+    # BigQueryから最新10件のテキストデータを取得します
+    latest_text_data = get_latest_text_data()
+
+    return latest_text_data
 
 def insert_button_data_to_bigquery(button_time, button_type):
     # datetimeオブジェクトをISOフォーマットの文字列に変換
@@ -65,6 +69,21 @@ def insert_text_data_to_bigquery(button_time, text_input):
     errors = client.insert_rows_json(table_id, rows_to_insert)
     if errors:
         raise Exception(f"BigQueryへのデータ挿入中にエラーが発生しました: {errors}")
+
+def get_latest_text_data():
+    # BigQueryから最新のテキストデータを取得します
+    query = f"""
+        SELECT *
+        FROM `{dataset_name}.{text_table}`
+        ORDER BY datetime DESC
+        LIMIT 10
+    """
+    query_job = client.query(query)
+    results = query_job.result()
+
+    # 結果を辞書のリストに変換します
+    latest_data = [dict(row) for row in results]
+    return latest_data
 
 if __name__ == '__main__':
     app.run(port=8080)
