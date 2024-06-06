@@ -33,8 +33,8 @@ def submit():
 
     # BigQueryから最新10件のテキストデータを取得します
     latest_text_data = get_latest_text_data()
-
-    return latest_text_data
+    return 'エラー確認'
+    # return latest_text_data
 
 def insert_button_data_to_bigquery(button_time, button_type):
     # datetimeオブジェクトをISOフォーマットの文字列に変換
@@ -76,7 +76,7 @@ def get_latest_text_data():
         SELECT *
         FROM `{dataset_name}.{text_table}`
         ORDER BY datetime DESC
-        LIMIT 10
+        LIMIT 1
     """
     query_job = client.query(query)
     results = query_job.result()
