@@ -34,7 +34,7 @@ def submit():
     # BigQueryから最新10件のテキストデータを取得します
     latest_text_data = get_latest_text_data()
     # return 'エラー確認'
-    return render_template('submit.html', latest_text_data=latest_text_data)
+    return render_template('result.html', latest_text_data=latest_text_data) #result.htmlで使用している変数の定義も忘れずに！
 
 def insert_button_data_to_bigquery(button_time, button_type):
     # datetimeオブジェクトをISOフォーマットの文字列に変換

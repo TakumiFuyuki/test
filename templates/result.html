@@ -1,0 +1,18 @@
+<!-- templates/result.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Text Data</title>
+</head>
+<body>
+    <h1>Latest Text Data</h1>
+    <!-- ここでlatest_text_dataについてforループを回して、データを表示させる -->
+    <ul>
+        {% for data in latest_text_data %}
+            <li>{{ data }}</li>
+        {% endfor %}
+    </ul>
+</body>
