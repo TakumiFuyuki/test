@@ -73,10 +73,10 @@ def insert_text_data_to_bigquery(button_time, text_input):
 def get_latest_text_data():
     # BigQueryから最新のテキストデータを取得します
     query = f"""
-        SELECT *
+        SELECT text
         FROM `{dataset_name}.{text_table}`
         ORDER BY datetime DESC
-        LIMIT 1
+        LIMIT 10
     """
     query_job = client.query(query)
     results = query_job.result()
